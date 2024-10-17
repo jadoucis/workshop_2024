@@ -42,7 +42,7 @@ L'extension sera maintenant visible dans la barre d'outils de votre navigateur.
 
 - manifest.json : Contient la configuration principale et les permissions nécessaires.
 - contentScript.js : Script injecté dans les pages de réseaux sociaux pour analyser le contenu et appliquer le floutage.
-- popup.js : Interface utilisateur du popup de l'extension, permettant de configurer les paramètres.
+- popup.js / popup.html : Interface utilisateur du popup de l'extension, permettant de configurer les paramètres.
 - background.js : Script de fond qui gère l'état global de l'extension.
 
 
