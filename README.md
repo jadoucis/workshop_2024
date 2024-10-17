@@ -59,6 +59,8 @@ JavaScript (ES6) : Pour la logique principale de l'extension.
 
 Chrome Extension API : Pour l'interaction avec les pages Web.
 
+HTML/CSS : Pour l'interface utilisateur.
+
 Bibliothèques NLP : Utilisation de modèles pré-entraînés pour analyser le contenu.
 
 ## Contribuer ##
