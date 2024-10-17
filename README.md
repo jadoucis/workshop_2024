@@ -18,7 +18,7 @@ Pour installer l'extension CleanNet IA :
 
 Clonez ou téléchargez le projet depuis GitHub :
 
-git clone https://github.com/username/CleanNet-IA.git
+git clone https://github.com/jadoucis/workshop_2024.git
 
 Charger l'extension dans Chrome :
 
