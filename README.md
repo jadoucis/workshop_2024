@@ -51,7 +51,7 @@ CleanNet IA prend la sécurité et la protection des données très au sérieux.
 
 Les contenus analysés ne sont jamais stockés sur des serveurs tiers.
 
-Toutes les communications entre l'extension et les APIs sont chiffrées.
+Toutes les communications entre l'extension et les APIs seront chiffrées.
 
 ## Technologies Utilisées ##
 
@@ -81,14 +81,12 @@ CleanNet IA utilise des modèles de traitement du langage naturel pour détecter
 
 L’extension fonctionne uniquement sur des plateformes prises en charge, comme Facebook et Twitter.
 
-## Licence ##
 
-Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
 
-Contact
+## Contact ##
 
 Pour toute question ou suggestion, n'hésitez pas à contacter l'équipe de développement :
 
-Email : contact@cleannetia.com
+Email : test@contact.test
 
 GitHub Issues : 
