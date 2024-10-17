@@ -33,7 +33,9 @@ L'extension sera maintenant visible dans la barre d'outils de votre navigateur.
 ## Utilisation ##
 
 1 - Lancer un réseau social comme par exemple Facebook ou X etc.
+
 2 - Si du contenu inapproprié est détecté, il sera automatiquement flouté.
+
 3 - L’utilisateur peut cliquer sur un bouton “Afficher le contenu” pour voir le contenu flouté.
 
 ## Architecture de l'Extension ##
