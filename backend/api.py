@@ -4,10 +4,13 @@ import nltk
 import pickle
 
 nltk.download('stopwords')
-stemmer = nltk.SnowballStemmer("english")
+nltk.download('punkt')
+
+stemmer = nltk.SnowballStemmer("french")
 from nltk.corpus import stopwords
 
-stopword = set(stopwords.words('english'))
+stopword = set(stopwords.words('french'))
+
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.templating import Jinja2Templates
@@ -21,8 +24,9 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates/")
 app.mount("/static", StaticFiles(directory="./static"), name="static")
 
-load_model = keras.models.load_model("./Final_Sentiment_Analysis.h5")
-with open('./Final_Sentiment_Tokenizer.pickle', 'rb') as handle:
+# Charger le modèle entraîné sur des données françaises
+load_model = keras.models.load_model("./Final_Sentiment_Analysis_FR.h5")
+with open('./Final_Sentiment_Tokenizer_FR.pickle', 'rb') as handle:
     load_tokenizer1 = pickle.load(handle)
 
 
@@ -45,7 +49,7 @@ def clean_text(text):
 
 origins = [
     "http://localhost",
-    "http://localhost:8000"
+    "http://localhost:8000",
     "http://localhost:8080",
 ]
 
@@ -63,15 +67,15 @@ async def predict(test: Request):
     print(test)
     test = await test.json()
     if not test:
-        raise HTTPException(status_code=404, detail="Sentence field is required")
+        raise HTTPException(status_code=404, detail="Le champ 'Sentence' est requis")
     test = [clean_text(test)]
     seq = load_tokenizer1.texts_to_sequences(test)
     padded = sequence.pad_sequences(seq, maxlen=300)
     pred = load_model.predict(padded)
     if pred < 0.5:
-        comment = "no hate"
+        comment = "Le commentaire ne contient pas de propos haineux"
     else:
-        comment = "hate and abusive"
+        comment = "Le commentaire contient des propos haineux"
     print(comment)
     return comment
 
