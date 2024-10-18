@@ -82,14 +82,10 @@ Merci de lire le fichier CONTRIBUTING.md avant de contribuer.
 
 CleanNet IA utilise des modèles de traitement du langage naturel pour détecter les contenus problématiques. Il peut y avoir des faux positifs ou des faux négatifs.
 
-L’extension fonctionne uniquement sur des plateformes prises en charge, comme Facebook et Twitter.
+L’extension fonctionne uniquement sur des plateformes prises en charge, comme Youtube.
 
 
 
 ## Contact ##
 
-Pour toute question ou suggestion, n'hésitez pas à contacter l'équipe de développement :
-
-Email : test@contact.test
-
-GitHub Issues : 
+Pour toute question ou suggestion, n'hésitez pas à contacter l'équipe de développement.
