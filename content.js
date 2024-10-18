@@ -32,9 +32,10 @@ var oldYt = ""
                     console.log(ans)
                     if(ans==="hate and abusive")
                     {
-                       inner.innerText = "this comment has been blocked!!!"
+                       inner.innerText = "Ce commentaire a été bloqué  !!!"
                        inner.style ="color:#CE0D00; font-weight:bold";
                        console.log("BLOCKED", textContent);
+                       chrome.action.setPopup({ popup: "popup.html" });
                     }
                     else{
                       console.log("unblocked comments: ",textContent)

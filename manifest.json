@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "CleanNet AI",
-  "description": "A chrome extension used to block hateful and offensive comments on social media sites such as Youtube and Twitter",
+  "name": "CleanNet IA",
+  "description": "Un exension chrome utilisée pour flouter les commentaires haineux et offensants sur les réseaux sociaux (comme Youtube)",
   "version": "1.0",
   "action": {
     "default_popup": "popup.html",

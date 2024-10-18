@@ -1,76 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-      #snackbar {
-        visibility: hidden;
-        min-width: 250px;
-        margin-left: -125px;
-        background-color: #333;
-        color: #fff;
-        text-align: center;
-        border-radius: 2px;
-        padding: 16px;
-        position: fixed;
-        z-index: 1;
-        left: 50%;
-        bottom: 30px;
-        font-size: 17px;
-      }
 
-      #snackbar.show {
-        visibility: visible;
-        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        animation: fadein 0.5s, fadeout 0.5s 2.5s;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="js/popup.js"></script>
+</head>
 
-      @-webkit-keyframes fadein {
-        from {
-          bottom: 0;
-          opacity: 0;
-        }
-        to {
-          bottom: 30px;
-          opacity: 1;
-        }
-      }
+<body>
+  <!-- Logo and Header Section -->
+  <div class="header">
+    <img src="images/logo.png" alt="Logo AdBlock" class="logo">
+    <h2>CleanNet IA</h2>
+  </div>
+  <div class="main-container">
 
-      @keyframes fadein {
-        from {
-          bottom: 0;
-          opacity: 0;
-        }
-        to {
-          bottom: 30px;
-          opacity: 1;
-        }
-      }
+    <h2>youtube.com</h2>
 
-      @-webkit-keyframes fadeout {
-        from {
-          bottom: 30px;
-          opacity: 1;
-        }
-        to {
-          bottom: 0;
-          opacity: 0;
-        }
-      }
+    <!-- Main Content Container -->
+    <div class="container">
+      <div class="section">
+        <div class="section-header">
+          <span>Commentaires Abusifs</span>
+          <span>0 sur cette page</span>
+        </div>
+      </div>
 
-      @keyframes fadeout {
-        from {
-          bottom: 30px;
-          opacity: 1;
-        }
-        to {
-          bottom: 0;
-          opacity: 0;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="alert">The contents of this comment seem offensive. Do you want proceed?</div>
-  </body>
+      <div class="section">
+        <div class="section-header">
+          <span>Signaler un commentaire abusif non détecté</span>
+        </div>
+        <button class="info-button">En savoir plus</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <button class="pause-button">Mettre en pause sur ce site</button>
+    </div>
+  </div>
+</body>
+
 </html>
