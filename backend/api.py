@@ -1,83 +1,57 @@
-import re
-import string
-import nltk
+
+import uvicorn
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 import pickle
+import nltk
 
 nltk.download('stopwords')
 nltk.download('punkt')
 
-stemmer = nltk.SnowballStemmer("french")
-from nltk.corpus import stopwords
+from tokenizer import tokenize
 
-stopword = set(stopwords.words('french'))
+with open('tfidf_vectorizer.pkl', 'rb') as f:
+    tfidf_vectorizer = pickle.load(f)
 
-import uvicorn
-from fastapi import FastAPI, HTTPException, Request
-from fastapi.templating import Jinja2Templates
-from keras.preprocessing import sequence
-import keras
-from starlette.staticfiles import StaticFiles
-from fastapi.middleware.cors import CORSMiddleware
+with open('lr_models.pkl', 'rb') as f:
+    lr_models = pickle.load(f)
+
+label_cols = ['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate']
+
+
+class TextData(BaseModel):
+    text: str
+
 
 app = FastAPI()
 
-templates = Jinja2Templates(directory="templates/")
-app.mount("/static", StaticFiles(directory="./static"), name="static")
 
-# Charger le modèle entraîné sur des données françaises
-load_model = keras.models.load_model("./Final_Sentiment_Analysis_FR.h5")
-with open('./Final_Sentiment_Tokenizer_FR.pickle', 'rb') as handle:
-    load_tokenizer1 = pickle.load(handle)
-
-
-def clean_text(text):
-    print(text)
-    text = str(text).lower()
-    text = re.sub('\[.*?\]', '', text)
-    text = re.sub('https?://\S+|www\.\S+', '', text)
-    text = re.sub('<.*?>+', '', text)
-    text = re.sub('[%s]' % re.escape(string.punctuation), '', text)
-    text = re.sub('\n', '', text)
-    text = re.sub('\w*\d\w*', '', text)
-    print(text)
-    text = [word for word in text.split(' ') if word not in stopword]
-    text = " ".join(text)
-    text = [stemmer.stem(word) for word in text.split(' ')]
-    text = " ".join(text)
-    return text
-
-
-origins = [
-    "http://localhost",
-    "http://localhost:8000",
-    "http://localhost:8080",
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+def predict_toxicity(comment, threshold=0.5):
+    comment_tfidf = tfidf_vectorizer.transform([comment])
+    is_toxic = 0
+    for label in label_cols:
+        probability = lr_models[label].predict_proba(comment_tfidf)[0][1]
+        if probability >= threshold:
+            is_toxic = 1
+            break
+    return is_toxic
 
 
 @app.post('/predict')
-async def predict(test: Request):
-    print(test)
-    test = await test.json()
-    if not test:
-        raise HTTPException(status_code=404, detail="Le champ 'Sentence' est requis")
-    test = [clean_text(test)]
-    seq = load_tokenizer1.texts_to_sequences(test)
-    padded = sequence.pad_sequences(seq, maxlen=300)
-    pred = load_model.predict(padded)
-    if pred < 0.5:
-        comment = "Le commentaire ne contient pas de propos haineux"
+async def predict(data: TextData):
+    if not data.text:
+        raise HTTPException(status_code=400, detail="Le champ 'text' est requis.")
+
+    cleaned_text = " ".join(tokenize(data.text))
+
+    is_toxic = predict_toxicity(cleaned_text)
+
+    if is_toxic == 1:
+        result = "Le commentaire est toxique."
     else:
-        comment = "Le commentaire contient des propos haineux"
-    print(comment)
-    return comment
+        result = "Le commentaire n'est pas toxique."
+
+    return {"text": data.text, "prediction": result}
 
 
 if __name__ == '__main__':
